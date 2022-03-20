@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.*;
 
-public class ContactCreationTest {
+public class ContactCreationTests {
     private WebDriver wd;
 
     @BeforeMethod(alwaysRun = true)
