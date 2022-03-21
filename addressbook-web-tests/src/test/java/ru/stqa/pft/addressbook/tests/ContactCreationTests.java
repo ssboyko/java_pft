@@ -8,8 +8,8 @@ public class ContactCreationTests extends TestBase{
 
     @Test
     public void testContactCreation() throws Exception {
-        app.initContactCreation();
-        app.fillContactForm(new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998"));
+        app.getContactHelper().initContactCreation();
+        app.getContactHelper().fillContactForm(new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998"));
         app.submit();
         app.getGroupsHelper().returnToHomePage();
         app.logout();
