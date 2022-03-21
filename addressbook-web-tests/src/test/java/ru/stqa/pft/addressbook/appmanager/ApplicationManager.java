@@ -21,7 +21,6 @@ public class ApplicationManager {
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
         sessionHelper.login("admin", "secret");
-
     }
 
     public void stop() {
