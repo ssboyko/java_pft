@@ -35,4 +35,16 @@ public class GroupsHelper extends HelperBase{
     public void returnToHomePage() {
         click(By.linkText("home page"));
     }
+
+    public void returnToGroupPage() {
+        click(By.linkText("group page"));
+    }
+
+    public void initGroupModification() {
+        click(By.name("edit"));
+    }
+
+    public void submitGroupModification() {
+        click(By.name("update"));
+    }
 }
