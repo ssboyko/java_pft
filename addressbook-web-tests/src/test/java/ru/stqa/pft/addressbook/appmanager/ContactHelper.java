@@ -53,4 +53,8 @@ public class ContactHelper extends HelperBase {
     public void returnToHomePage() {
         click(By.linkText("home"));
     }
+
+    public void submitContactCreation() {
+        click(By.name("submit"));
+    }
 }

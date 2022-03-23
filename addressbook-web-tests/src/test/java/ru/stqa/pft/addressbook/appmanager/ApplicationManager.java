@@ -31,10 +31,6 @@ public class ApplicationManager {
         wd.findElement(By.linkText("Logout")).click();
     }
 
-    public void submit() {
-        groupsHelper.submitGroupCreation();
-    }
-
     public GroupsHelper getGroupsHelper() {
         return groupsHelper;
     }
