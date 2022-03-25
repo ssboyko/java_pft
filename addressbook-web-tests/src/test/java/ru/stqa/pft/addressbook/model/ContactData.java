@@ -14,7 +14,13 @@ public class ContactData {
     private final String month;
     private final String year;
 
-    public ContactData(String name, String middle_name, String last_name, String nickname, String title, String company, String address, String home, String mobile, String date, String month, String year) {
+    public String getGroup() {
+        return group;
+    }
+
+    private String group;
+
+    public ContactData(String name, String middle_name, String last_name, String nickname, String title, String company, String address, String home, String mobile, String date, String month, String year, String group) {
         this.name = name;
         this.middle_name = middle_name;
         this.last_name = last_name;
@@ -27,6 +33,7 @@ public class ContactData {
         this.date = date;
         this.month = month;
         this.year = year;
+        this.group = group;
     }
 
     public String getName() {
