@@ -1,7 +1,9 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 public class GroupsHelper extends HelperBase{
@@ -60,6 +62,7 @@ public class GroupsHelper extends HelperBase{
     }
 
     public boolean isThereAGroup() {
-        return isElementPresent(By.name("selected[]"));
+        return isElementPresent(By.xpath("//div[@id='content']/form/select[5]/option[2]"));
     }
+
 }
