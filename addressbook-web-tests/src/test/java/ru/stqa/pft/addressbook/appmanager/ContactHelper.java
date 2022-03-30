@@ -74,4 +74,8 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
         returnToHomePage();
     }
+
+    public boolean isThereAGroupAtContactCreationForm() {
+        return isElementPresent(By.xpath("//div[@id='content']/form/select[5]/option[2]"));
+    }
 }

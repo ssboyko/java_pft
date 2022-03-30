@@ -62,7 +62,7 @@ public class GroupsHelper extends HelperBase{
     }
 
     public boolean isThereAGroup() {
-        return isElementPresent(By.xpath("//div[@id='content']/form/select[5]/option[2]"));
+        return isElementPresent(By.name("selected[]"));
     }
 
 }
