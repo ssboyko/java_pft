@@ -75,7 +75,24 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
+    public void goToGroupPage() {
+        if (isElementPresent(By.tagName("h1"))
+                && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+                && isElementPresent(By.name("new"))) {
+            return;
+        }
+        click(By.linkText("groups"));
+    }
+
     public boolean isThereAGroupAtContactCreationForm() {
         return isElementPresent(By.xpath("//div[@id='content']/form/select[5]/option[2]"));
     }
+
+    public void createGroupIfItNotExistsAtContactForm(){
+        if(!isThereAGroupAtContactCreationForm()){
+            goToGroupPage();
+
+        }
+    }
+
 }

@@ -7,6 +7,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification() {
         if (!app.getContactHelper().isThereAContact()) {
+            createGroupIfItNotExists();
             app.getContactHelper().createContact(new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1"));
         }
         app.getContactHelper().initContactModification();
