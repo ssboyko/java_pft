@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 public class ContactHelper extends HelperBase {
-
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
@@ -70,7 +70,7 @@ public class ContactHelper extends HelperBase {
 
     public void createContact(ContactData contactData) {
         initContactCreation();
-        fillContactForm(contactData,true);
+        fillContactForm(contactData, true);
         submitContactCreation();
         returnToHomePage();
     }
@@ -86,13 +86,6 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAGroupAtContactCreationForm() {
         return isElementPresent(By.xpath("//div[@id='content']/form/select[5]/option[2]"));
-    }
-
-    public void createGroupIfItNotExistsAtContactForm(){
-        if(!isThereAGroupAtContactCreationForm()){
-            goToGroupPage();
-
-        }
     }
 
 }

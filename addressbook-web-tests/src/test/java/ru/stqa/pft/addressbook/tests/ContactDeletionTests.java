@@ -8,9 +8,10 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() {
-        if (!app.getContactHelper().isThereAContact()) {
-            createGroupIfItNotExists();
-            app.getContactHelper().createContact(new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1"));
+        GroupData groupData = new GroupData("test1", null, null);
+        ContactData contactData = new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1");
+        if(!app.getContactHelper().isThereAContact()){
+            createContact(groupData,contactData);
         }
         app.getContactHelper().selectFirstContact();
         app.getContactHelper().deleteContact();

@@ -4,6 +4,7 @@ import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 public class TestBase {
@@ -20,11 +21,18 @@ public class TestBase {
         app.stop();
     }
 
-    public void createGroupIfItNotExists() {
+    public void createGroupIfItNotExists(GroupData groupData) {
         if (!app.getContactHelper().isThereAGroupAtContactCreationForm()) {
             app.getNavigationHelper().goToGroupPage();
-            app.getGroupsHelper().createGroup(new GroupData("test1", null, null));
+            app.getGroupsHelper().createGroup(groupData);
         }
+    }
+
+    public void createContact(GroupData groupData, ContactData contactData) {
+        if (!app.getContactHelper().isThereAGroupAtContactCreationForm()) {
+            createGroupIfItNotExists(groupData);
+        }
+        app.getContactHelper().createContact(contactData);
     }
 }
 
