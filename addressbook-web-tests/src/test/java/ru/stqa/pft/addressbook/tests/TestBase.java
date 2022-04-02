@@ -29,9 +29,8 @@ public class TestBase {
     }
 
     public void createContact(GroupData groupData, ContactData contactData) {
-        if (!app.getContactHelper().isThereAGroupAtContactCreationForm()) {
-            createGroupIfItNotExists(groupData);
-        }
+        app.getContactHelper().initContactCreation();
+        createGroupIfItNotExists(groupData);
         app.getContactHelper().createContact(contactData);
     }
 }
