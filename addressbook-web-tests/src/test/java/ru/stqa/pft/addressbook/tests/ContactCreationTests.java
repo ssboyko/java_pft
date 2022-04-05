@@ -12,7 +12,7 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() throws Exception {
         ContactData contactData = new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1");
-        GroupData groupData = new GroupData("test1", null, null);
+        GroupData groupData = new GroupData(contactData.getGroup(), null, null);
         //получили коллекцию контактов перед созданием контакта
         List<ContactData> before = app.getContactHelper().getContactList();
         createContact(groupData, contactData);

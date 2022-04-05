@@ -13,7 +13,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification() {
         ContactData contactData = new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1");
-        GroupData groupData = new GroupData("test1", null, null);
+        GroupData groupData = new GroupData(contactData.getGroup(), null, null);
         if (!app.getContactHelper().isThereAContact()) {
             createContact(groupData, contactData);
         }
