@@ -15,9 +15,15 @@ public class ContactCreationTests extends TestBase {
         GroupData groupData = new GroupData(contactData.getGroup(), null, null);
         //получили коллекцию контактов перед созданием контакта
         List<ContactData> before = app.getContactHelper().getContactList();
+//        for (ContactData data : before) {
+//            System.out.println("before " + data);
+//        }
         createContact(groupData, contactData);
         //получили коллекцию контактов после создания контакта
         List<ContactData> after = app.getContactHelper().getContactList();
+//        for (ContactData data : after) {
+//            System.out.println("after " + data);
+//        }
         //Сравнили коллекции, после добавления коллекция стала больше на 1 добавленный контакт
         Assert.assertEquals(after.size(), before.size() +1);
         //добавили в первоначальную коллекцию контактов добавленный контакт
