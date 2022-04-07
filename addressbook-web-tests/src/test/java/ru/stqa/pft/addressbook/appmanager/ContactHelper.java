@@ -88,20 +88,21 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("groups"));
     }
 
-    public boolean isThereAGroupAtContactCreationForm() {
-        return isElementPresent(By.xpath("//div[@id='content']/form/select[5]/option[2]"));
-
+    public boolean isThereAGroupAtContactCreationForm(String groupName) {
+        List<WebElement> options = new Select(wd.findElement(By.name("new_group"))).getOptions();
+        return options.stream().anyMatch(webElement -> webElement.getText().equals(groupName));
     }
+
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.xpath("//*[@id='maintable']/tbody/tr[@name = 'entry']"));
-        for(WebElement element : elements){
+        for (WebElement element : elements) {
             List<WebElement> cells = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            String lastname =  cells.get(1).getText();
+            String lastname = cells.get(1).getText();
             String name = cells.get(2).getText();
-            ContactData contact = new ContactData(id, name, null, lastname, null,null,null,null,null,null,null,null,null,null);
+            ContactData contact = new ContactData(id, name, null, lastname, null, null, null, null, null, null, null, null, null, null);
             contacts.add(contact);
         }
         return contacts;
