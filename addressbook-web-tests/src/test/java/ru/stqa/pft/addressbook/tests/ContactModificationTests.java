@@ -19,11 +19,12 @@ public class ContactModificationTests extends TestBase {
         }
         //получили коллекцию контактов перед модификацией
         List<ContactData> before = app.getContactHelper().getContactList();
-        //выбрали послдений контакт для модификации
-        app.getContactHelper().selectContact(before.size()-1);
-        app.getContactHelper().initContactModification();
+        //выбрали последний контакт для модификации
+        int indexOfContact = before.size()-1;
+        app.getContactHelper().selectContact(indexOfContact);
+        app.getContactHelper().initContactModification(before.get(indexOfContact).getId());
         //создали модельный объект и наполнили его данными для модификации, присвоив ему ID изменяемого контакта (последний контакт)
-        ContactData contactData2 = new ContactData(before.get(before.size()-1).getId(),"name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1");
+        ContactData contactData2 = new ContactData(before.get(indexOfContact).getId(),"name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1");
         //заполнили форму данными из модельного объекта
         app.getContactHelper().fillContactForm(contactData2, false);
         app.getContactHelper().submitContactModification();
@@ -33,7 +34,7 @@ public class ContactModificationTests extends TestBase {
         //сравнили их размер
         Assert.assertEquals(after.size(), before.size());
         //удалили последний элемент первоначальной коллекции контактов, до модификации
-        before.remove(before.size()-1);
+        before.remove(indexOfContact);
         //добавили в первоначальную коллекцию контактов изменённый контакт, id его не изменился
         before.add(contactData2);
         //реализовали компаратор для сравнения по id двух коллекций, до и после модификации

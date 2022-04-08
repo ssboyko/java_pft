@@ -52,8 +52,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void initContactModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initContactModification(int id) {
+        click(By.xpath("//a[@href='edit.php?id=" + id + "']"));
     }
 
     public void submitContactModification() {
