@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
@@ -13,7 +12,7 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() throws Exception {
         ContactData contactData = new ContactData()
-                .withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname").withTitle("title").withCompany("company").withAddress("address").withHome("home").withMobile("+79998885544").withDate("1").withMonth("February").withYear("1998").withGroup("test1");
+                .withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname").withTitle("title").withCompany("company").withAddress("address").withHomePhone("home").withMobile("+79998885544").withDate("1").withMonth("February").withYear("1998").withGroup("test1");
         GroupData groupData = new GroupData().withName(contactData.getGroup());
         Contacts before = app.contact().all();
         create(groupData, contactData);

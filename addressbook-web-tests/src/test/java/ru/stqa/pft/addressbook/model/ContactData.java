@@ -11,9 +11,15 @@ public class ContactData {
     private String title;
     private String company;
     private String address;
-    private String home;
-    private String mobile;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
     private String date;
+
+
+
+
+
     private String month;
     private String year;
     private String group;
@@ -55,12 +61,16 @@ public class ContactData {
         return address;
     }
 
-    public String getHome() {
-        return home;
+    public String getHomePhone() {
+        return homePhone;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
     }
 
     public String getDate() {
@@ -123,13 +133,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withHome(String home) {
-        this.home = home;
+    public ContactData withHomePhone(String home) {
+        this.homePhone = home;
         return this;
     }
 
     public ContactData withMobile(String mobile) {
-        this.mobile = mobile;
+        this.mobilePhone = mobile;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
         return this;
     }
 
