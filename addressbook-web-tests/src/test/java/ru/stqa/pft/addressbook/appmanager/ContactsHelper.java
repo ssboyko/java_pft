@@ -8,13 +8,14 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ContactHelper extends HelperBase {
-    public ContactHelper(WebDriver wd) {
+public class ContactsHelper extends HelperBase {
+    public ContactsHelper(WebDriver wd) {
         super(wd);
     }
 
@@ -74,10 +75,34 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
+    public boolean isThereAGroupAtContactCreationForm(String groupName) {
+        List<WebElement> options = new Select(wd.findElement(By.name("new_group"))).getOptions();
+        return options.stream().anyMatch(webElement -> webElement.getText().equals(groupName));
+    }
+
+    private Contacts contactCache = null;
+
+    public Contacts all() {
+        if(contactCache !=  null){
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
+        List<WebElement> elements = wd.findElements(By.xpath("//*[@id='maintable']/tbody/tr[@name = 'entry']"));
+        for (WebElement element : elements) {
+            List<WebElement> cells = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String lastname = cells.get(1).getText();
+            String name = cells.get(2).getText();
+            contactCache.add(new ContactData().withId(id).withName(name).withLast_name(lastname));
+        }
+        return contactCache;
+    }
+
     public void createContact(ContactData contactData) {
         initContactCreation();
         fillContactForm(contactData, true);
         submitContactCreation();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -86,31 +111,15 @@ public class ContactHelper extends HelperBase {
         initContactModification(contactData.getId());
         fillContactForm(contactData, false);
         submitContactModification();
+        contactCache = null;
         returnToHomePage();
-    }
-
-    public boolean isThereAGroupAtContactCreationForm(String groupName) {
-        List<WebElement> options = new Select(wd.findElement(By.name("new_group"))).getOptions();
-        return options.stream().anyMatch(webElement -> webElement.getText().equals(groupName));
-    }
-
-    public Contacts all() {
-        Contacts contacts = new Contacts();
-        List<WebElement> elements = wd.findElements(By.xpath("//*[@id='maintable']/tbody/tr[@name = 'entry']"));
-        for (WebElement element : elements) {
-            List<WebElement> cells = element.findElements(By.tagName("td"));
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            String lastname = cells.get(1).getText();
-            String name = cells.get(2).getText();
-            contacts.add(new ContactData().withId(id).withName(name).withLast_name(lastname));
-        }
-        return contacts;
     }
 
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteContact();
         wd.switchTo().alert().accept();
+        contactCache = null;
         returnToHomePage();
     }
 }

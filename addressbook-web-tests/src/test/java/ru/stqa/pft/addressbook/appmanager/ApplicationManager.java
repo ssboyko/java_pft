@@ -6,13 +6,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     public WebDriver wd;
-    private ContactHelper contactHelper;
+    private ContactsHelper contactsHelper;
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupsHelper groupsHelper;
@@ -37,7 +36,7 @@ public class ApplicationManager {
         groupsHelper = new GroupsHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
-        contactHelper = new ContactHelper(wd);
+        contactsHelper = new ContactsHelper(wd);
         sessionHelper.login("admin", "secret");
     }
 
@@ -57,8 +56,8 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public ContactHelper contact() {
-        return contactHelper;
+    public ContactsHelper contact() {
+        return contactsHelper;
     }
 
 }
