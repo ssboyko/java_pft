@@ -3,35 +3,28 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() throws Exception {
-        ContactData contactData = new ContactData("name", "middle name", "last name", "nickname", "title", "company", "address", "home", "+79998885544", "1", "February", "1998", "test1");
-        GroupData groupData = new GroupData(contactData.getGroup(), null, null);
-        //получили коллекцию контактов перед созданием контакта
-        List<ContactData> before = app.getContactHelper().getContactList();
-        createContact(groupData, contactData);
-        //получили коллекцию контактов после создания контакта
-        List<ContactData> after = app.getContactHelper().getContactList();
-        //Сравнили коллекции, после добавления коллекция стала больше на 1 добавленный контакт
-        Assert.assertEquals(after.size(), before.size() +1);
-        //добавили в первоначальную коллекцию контактов добавленный контакт
-        before.add(contactData);
-        //реализовали компаратор для сравнения по id двух коллекций, до и после модификации
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(),c2.getId());
-        //упорядочили их по id
-        before.sort(byId);
-        after.sort(byId);
-        //и сравнили их, в методе Equals класса ContactData сравнение ведётся по полям name, last_name
-        Assert.assertEquals(before, after);
-        app.logout();
+        ContactData contactData = new ContactData()
+                .withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname").withTitle("title").withCompany("company").withAddress("address").withHome("home").withMobile("+79998885544").withDate("1").withMonth("February").withYear("1998").withGroup("test1");
+        GroupData groupData = new GroupData().withName(contactData.getGroup());
+        Contacts before = app.contact().all();
+        create(groupData, contactData);
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
+
+        assertThat(after,equalTo(
+                before.withAdded(contactData.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))
+        ));
     }
-    }
+}
 
 
 

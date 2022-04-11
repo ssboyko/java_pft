@@ -6,10 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -44,8 +46,8 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
 
     public void deleteContact() {
@@ -79,13 +81,12 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void goToGroupPage() {
-        if (isElementPresent(By.tagName("h1"))
-                && wd.findElement(By.tagName("h1")).getText().equals("Groups")
-                && isElementPresent(By.name("new"))) {
-            return;
-        }
-        click(By.linkText("groups"));
+    public void modify(Set<ContactData> before, ContactData contactData) {
+        selectContactById(contactData.getId());
+        initContactModification(contactData.getId());
+        fillContactForm(contactData, false);
+        submitContactModification();
+        returnToHomePage();
     }
 
     public boolean isThereAGroupAtContactCreationForm(String groupName) {
@@ -93,19 +94,23 @@ public class ContactHelper extends HelperBase {
         return options.stream().anyMatch(webElement -> webElement.getText().equals(groupName));
     }
 
-
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//*[@id='maintable']/tbody/tr[@name = 'entry']"));
         for (WebElement element : elements) {
             List<WebElement> cells = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String lastname = cells.get(1).getText();
             String name = cells.get(2).getText();
-            ContactData contact = new ContactData(id, name, null, lastname, null, null, null, null, null, null, null, null, null, null);
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withName(name).withLast_name(lastname));
         }
         return contacts;
     }
 
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteContact();
+        wd.switchTo().alert().accept();
+        returnToHomePage();
+    }
 }

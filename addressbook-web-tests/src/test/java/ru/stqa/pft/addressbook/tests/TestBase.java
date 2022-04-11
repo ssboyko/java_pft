@@ -22,16 +22,16 @@ public class TestBase {
     }
 
     public void createGroupIfItNotExists(GroupData groupData) {
-        if (!app.getContactHelper().isThereAGroupAtContactCreationForm(groupData.getName())) {
+        if (!app.contact().isThereAGroupAtContactCreationForm(groupData.getName())) {
             app.goTo().groupPage();
             app.group().create(groupData);
         }
     }
 
-    public void createContact(GroupData groupData, ContactData contactData) {
-        app.getContactHelper().initContactCreation();
+    public void create(GroupData groupData, ContactData contactData) {
+        app.contact().initContactCreation();
         createGroupIfItNotExists(groupData);
-        app.getContactHelper().createContact(contactData);
+        app.contact().createContact(contactData);
     }
 }
 
