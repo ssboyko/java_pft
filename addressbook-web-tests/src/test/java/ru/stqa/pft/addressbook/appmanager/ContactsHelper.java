@@ -136,7 +136,7 @@ public class ContactsHelper extends HelperBase {
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
         wd.navigate().back();
-        return new ContactData().withId(contact.getId()).withName(contact.getName()).withLast_name(contact.getLast_name())
-                .withHomePhone(contact.getHomePhone()).withMobile(contact.getMobilePhone()).withWorkPhone(contact.getWorkPhone());
+        return new ContactData().withId(contact.getId()).withName(firstname).withLast_name(lastname)
+                .withHomePhone(home).withMobile(mobile).withWorkPhone(work);
     }
 }
