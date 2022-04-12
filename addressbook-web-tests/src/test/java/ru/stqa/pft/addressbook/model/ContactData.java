@@ -14,12 +14,8 @@ public class ContactData {
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
+    private String allPhones;
     private String date;
-
-
-
-
-
     private String month;
     private String year;
     private String group;
@@ -91,6 +87,15 @@ public class ContactData {
 
     public int getId() {
         return id;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
     }
 
     public ContactData withId(int id) {
