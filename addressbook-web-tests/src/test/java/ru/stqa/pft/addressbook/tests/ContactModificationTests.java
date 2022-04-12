@@ -14,7 +14,9 @@ public class ContactModificationTests extends TestBase {
     public void ensurePreconditions() {
         ContactData contactData = new ContactData()
                 .withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname").withTitle("title").withCompany("company")
-                .withAddress("address").withHomePhone("home").withMobile("+79998885544").withDate("1").withMonth("February").withYear("1998").withGroup("test1");
+                .withAddress("Some City, some Street, house 23, flat 12").withHomePhone("123456").withMobile("+79998885544").withWorkPhone("987654321")
+                .withEmail("test@yandex.ru").withEmail2("123-test-123@gmail.com").withEmail3("dot.dot@email.ru").withDate("1").withMonth("February")
+                .withYear("1998").withGroup("test1");
         GroupData groupData = new GroupData().withName(contactData.getGroup());
         if (app.contact().all().size() == 0) {
             create(groupData, contactData);
