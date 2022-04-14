@@ -31,7 +31,9 @@ public class ContactPhoneAdressEmailTests extends TestBase{
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat((contact.getAllPhones()), equalTo(equalTo(mergePhones(contactInfoFromEditForm))));
+        System.out.println("All phones are: " + contact.getAllPhones());
+        System.out.println("Merged phones: " + mergePhones(contactInfoFromEditForm));
+        assertThat((contact.getAllPhones()), equalTo(mergePhones(contactInfoFromEditForm)));
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
         assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
     }
