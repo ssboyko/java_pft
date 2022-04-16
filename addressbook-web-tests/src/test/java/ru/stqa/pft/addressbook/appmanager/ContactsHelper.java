@@ -27,7 +27,7 @@ public class ContactsHelper extends HelperBase {
         type(By.name("home"), contactData.getHomePhone());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("work"), contactData.getWorkPhone());
-        type(By.name("fax"), contactData.getFax());
+        type(By.name("phone2"), contactData.getPhone2());
         type(By.name("email"), contactData.getEmail());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
@@ -142,7 +142,7 @@ public class ContactsHelper extends HelperBase {
         String homePhone = wd.findElement(By.name("home")).getAttribute("value");
         String mobilePhone = wd.findElement(By.name("mobile")).getAttribute("value");
         String workPhone = wd.findElement(By.name("work")).getAttribute("value");
-        String faxPhone = wd.findElement(By.name("fax")).getAttribute("value");
+        String faxPhone = wd.findElement(By.name("phone2")).getAttribute("value");
         String address = wd.findElement(By.name("address")).getAttribute("value");
         String email1 = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
@@ -150,7 +150,7 @@ public class ContactsHelper extends HelperBase {
 
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withName(firstname).withLast_name(lastname).withAddress(address)
-                .withHomePhone(homePhone).withMobile(mobilePhone).withWorkPhone(workPhone).withFax(faxPhone).withEmail(email1)
+                .withHomePhone(homePhone).withMobile(mobilePhone).withWorkPhone(workPhone).withPhone2(faxPhone).withEmail(email1)
                 .withEmail2(email2).withEmail3(email3);
     }
 }

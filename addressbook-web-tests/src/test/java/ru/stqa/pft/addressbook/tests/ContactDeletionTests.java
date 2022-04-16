@@ -16,7 +16,7 @@ public class ContactDeletionTests extends TestBase {
     public void ensurePreconditions() {
         ContactData contactData = new ContactData()
                 .withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname").withTitle("title").withCompany("company")
-                .withAddress("Some City, some Street, house 23, flat 12").withHomePhone("5555555").withMobile("+(7999)8885544").withWorkPhone("9-876-54321").withFax("+7(913)231-53-23")
+                .withAddress("Some City, some Street, house 23, flat 12").withHomePhone("5555555").withMobile("+(7999)8885544").withWorkPhone("9-876-54321").withPhone2("+7(913)231-53-23")
                 .withEmail("test@yandex.ru").withEmail2("123-test-123@gmail.com").withEmail3("dot.dot@email.ru").withDate("1").withMonth("February")
                 .withYear("1998").withGroup("test1");
         GroupData groupData = new GroupData().withName(contactData.getGroup());

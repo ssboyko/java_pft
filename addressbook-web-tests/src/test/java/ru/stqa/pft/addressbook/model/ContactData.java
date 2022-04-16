@@ -14,7 +14,7 @@ public class ContactData {
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
-    private String fax;
+    private String phone2;
     private String allPhones;
     private String email;
     private String email2;
@@ -34,8 +34,8 @@ public class ContactData {
                 '}';
     }
 
-    public String getFax() {
-        return fax;
+    public String getPhone2() {
+        return phone2;
     }
 
     public String getAllEmails() {
@@ -118,8 +118,8 @@ public class ContactData {
         return allPhones;
     }
 
-    public ContactData withFax(String fax) {
-        this.fax = fax;
+    public ContactData withPhone2(String phone2) {
+        this.phone2 = phone2;
         return this;
     }
 
