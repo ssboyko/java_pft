@@ -20,6 +20,7 @@ public class ContactsHelper extends HelperBase {
         type(By.name("firstname"), contactData.getName());
         type(By.name("middlename"), contactData.getMiddle_name());
         type(By.name("lastname"), contactData.getLast_name());
+        attach(By.name("photo"),contactData.getPhoto());
         type(By.name("nickname"), contactData.getNickname());
         type(By.name("title"), contactData.getTitle());
         type(By.name("company"), contactData.getCompany());
@@ -38,6 +39,7 @@ public class ContactsHelper extends HelperBase {
         new Select(wd.findElement(By.name("bmonth"))).selectByVisibleText(contactData.getMonth());
         click(By.xpath("//option[@value='" + contactData.getMonth() + "']"));
         type(By.name("byear"), contactData.getYear());
+
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
