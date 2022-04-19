@@ -9,4 +9,5 @@ dependencies {
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.1.2'
     implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'com.beust:jcommander:1.82'
 }
