@@ -90,7 +90,7 @@ public class GroupsHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupModification();
         groupCache = null;
-        returnToGroupPage();
+        //returnToGroupPage();
     }
 
     public void delete(GroupData group) {

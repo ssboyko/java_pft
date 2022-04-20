@@ -20,7 +20,7 @@ public class ContactsHelper extends HelperBase {
         type(By.name("firstname"), contactData.getName());
         type(By.name("middlename"), contactData.getMiddle_name());
         type(By.name("lastname"), contactData.getLast_name());
-        attach(By.name("photo"),contactData.getPhoto());
+        attach(By.name("photo"), contactData.getPhoto());
         type(By.name("nickname"), contactData.getNickname());
         type(By.name("title"), contactData.getTitle());
         type(By.name("company"), contactData.getCompany());
@@ -94,7 +94,7 @@ public class ContactsHelper extends HelperBase {
     private Contacts contactCache = null;
 
     public Contacts all() {
-        if(contactCache !=  null){
+        if (contactCache != null) {
             return new Contacts(contactCache);
         }
         contactCache = new Contacts();
