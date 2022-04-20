@@ -81,7 +81,7 @@ public class GroupsHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupCreation();
         groupCache = null;
-        returnToGroupPage();
+        //returnToGroupPage();
     }
 
     public void modify(GroupData group) {
