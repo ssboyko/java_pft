@@ -30,8 +30,7 @@ public class GroupDataGenerator {
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        }
-        catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
         }
@@ -43,16 +42,13 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<GroupData> groups = generateGroups(count);
-        if(format.equals("csv")){
+        if (format.equals("csv")) {
             saveAsCsv(groups, new File(file));
-        }
-        else if(format.equals("xml")){
+        } else if (format.equals("xml")) {
             saveAsXml(groups, new File(file));
-        }
-        else if(format.equals("json")){
+        } else if (format.equals("json")) {
             saveAsJson(groups, new File(file));
-        }
-        else {
+        } else {
             System.out.println("Unrecognized format " + format);
         }
 
@@ -71,7 +67,7 @@ public class GroupDataGenerator {
         xstream.processAnnotations(GroupData.class);
         xstream.allowTypes(new Class[]{GroupData.class});
 
-        xstream.alias("group",GroupData.class);
+        xstream.alias("group", GroupData.class);
         String xml = xstream.toXML(groups);
         Writer writer = new FileWriter(file);
         writer.write(xml);
