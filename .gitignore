@@ -3,6 +3,7 @@
 .idea/workspace.xml
 out/
 addressbook-web-tests/out/
+*.log
 
 # Ignore Gradle GUI config
 gradle-app.setting
