@@ -32,6 +32,7 @@ public class TestBase {
         app.contact().initContactCreation();
         createGroupIfItNotExists(groupData);
         app.contact().createContact(contactData);
+        app.contact().returnToHomePage();
     }
 }
 

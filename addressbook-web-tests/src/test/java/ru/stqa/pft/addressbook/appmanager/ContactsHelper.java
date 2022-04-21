@@ -117,7 +117,7 @@ public class ContactsHelper extends HelperBase {
         fillContactForm(contactData, true);
         submitContactCreation();
         contactCache = null;
-        returnToHomePage();
+        //returnToHomePage();
     }
 
     public void modify(Set<ContactData> before, ContactData contactData) {
