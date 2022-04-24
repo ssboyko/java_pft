@@ -120,7 +120,7 @@ public class ContactsHelper extends HelperBase {
         //returnToHomePage();
     }
 
-    public void modify(Set<ContactData> before, ContactData contactData) {
+    public void modify(ContactData contactData) {
         selectContactById(contactData.getId());
         initContactModification(contactData.getId());
         fillContactForm(contactData, false);

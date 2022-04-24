@@ -39,12 +39,12 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contactData) throws Exception {
-        File photo = new File("src/test/resources/photo.jpg");
+        File photo = new File("src/test/resources/photo.jpeg");
         contactData.withPhoto(photo);
         GroupData groupData = new GroupData().withName(contactData.getGroup());
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         create(groupData, contactData);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
 
         assertThat(after, equalTo(
