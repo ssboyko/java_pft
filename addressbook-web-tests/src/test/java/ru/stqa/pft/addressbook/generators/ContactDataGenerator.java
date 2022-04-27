@@ -75,8 +75,7 @@ public class ContactDataGenerator {
                     .withEmail3(String.format("dot.dot%s@email.ru", i))
                     .withDate("1")
                     .withMonth("February")
-                    .withYear(String.format("199%s", i))
-                    .withGroup("test1"));
+                    .withYear(String.format("199%s", i)));
         }
         return contacts;
     }

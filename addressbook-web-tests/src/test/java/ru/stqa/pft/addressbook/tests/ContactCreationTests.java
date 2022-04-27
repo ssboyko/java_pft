@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,9 +40,18 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contactData) throws Exception {
+        GroupData group = new GroupData().withName("test1").withHeader("test2").withFooter("test3");
+        Groups groups = app.db().groups();
         File photo = new File("src/test/resources/photo.jpeg");
-        contactData.withPhoto(photo);
-        GroupData groupData = new GroupData().withName(contactData.getGroup());
+        //реализовать предусловие - если нет никакой группы, то нужно её создать
+        if(groups.size() == 0) {
+            app.goTo().groupPage();
+            app.group().create(group);
+            app.goTo().groupPage();
+        }
+        contactData.withPhoto(photo).inGroup(groups.iterator().next());
+
+        GroupData groupData = new GroupData().withName(contactData.getGroups().iterator().next().getName());
         Contacts before = app.db().contacts();
         create(groupData, contactData);
         Contacts after = app.db().contacts();

@@ -19,8 +19,8 @@ public class ContactModificationTests extends TestBase {
                 .withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname").withTitle("title").withCompany("company")
                 .withAddress("Some City, some Street, house 23, flat 12").withHomePhone("5555555").withMobile("+(7999)8885544").withWorkPhone("9-876-54321").withPhone2("+7(913)231-53-23")
                 .withEmail("test@yandex.ru").withEmail2("123-test-123@gmail.com").withEmail3("dot.dot@email.ru").withDate("1").withMonth("February")
-                .withYear("1998").withGroup("test1").withPhoto(photo);
-        GroupData groupData = new GroupData().withName(contactData.getGroup());
+                .withYear("1998").withPhoto(photo);
+        GroupData groupData = new GroupData().withName("test1");
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             create(groupData, contactData);
@@ -35,7 +35,7 @@ public class ContactModificationTests extends TestBase {
         ContactData contactData2 = new ContactData()
                 .withId(modifiedContact.getId()).withName("name").withMiddle_name("middle name").withLast_name("last name").withNickname("nickname")
                 .withTitle("title").withCompany("company").withAddress("address").withHomePhone("home").withMobile("+79998885544").withDate("1").withMonth("February")
-                .withYear("1998").withGroup("test1").withPhoto(photo);
+                .withYear("1998").withPhoto(photo);
         app.goTo().homePage();
         for(ContactData c: before){
             System.out.println("Before is " + c);
