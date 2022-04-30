@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -10,7 +12,11 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+
+import javax.persistence.Query;
+import java.sql.Connection;
 import java.util.List;
+import java.util.Queue;
 
 public class DbHelper {
     private final SessionFactory sessionFactory;
@@ -41,5 +47,16 @@ public class DbHelper {
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
+    }
+
+    public ContactData contact(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = (Query) session.createQuery("from ContactData where id = :id");
+        query.setParameter("id", id);
+        ContactData contactData = (ContactData) query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return contactData;
     }
 }

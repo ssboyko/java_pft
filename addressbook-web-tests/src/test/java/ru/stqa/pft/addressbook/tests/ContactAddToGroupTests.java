@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.hibernate.Session;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -55,7 +56,7 @@ public class ContactAddToGroupTests extends TestBase {
         ContactData contactBeforeAddingToGroup = app.db().contacts().iterator().next();
         //получаем список групп у этого контакта
         Groups beforeGroups = contactBeforeAddingToGroup.getGroups();
-        System.out.println("beforeGroups are " + beforeGroups);
+        System.out.println("beforeGroups " + beforeGroups);
 
         //проверяем, что если контакт добавлен ещё не во все группы, то добавляем контакт в группу
         if (groups.size() > beforeGroups.size()) {
@@ -67,9 +68,11 @@ public class ContactAddToGroupTests extends TestBase {
             app.contact().addToGroup(contactBeforeAddingToGroup,groupForAdding);
             //Получаем список групп у контакта после добавления
             //ПОЧЕМУ-ТО ПРИ ПОЛУЧЕНИИ СПИСКА ГРУПП У КОНТАКТА ПОСЛЕ ДОБАВЛЕНИЯ НЕ ИЗМЕНЯЕТСЯ
+            //app.db().contacts();
+            app.db().contact(contactBeforeAddingToGroup.getId());
             Groups afterGroups = contactBeforeAddingToGroup.getGroups();
 
-            System.out.println("afterGroups are " + afterGroups);
+//            System.out.println("afterGroups are " + afterGroups);
             //Сравнение списка групп до и после добавления
 //            MatcherAssert.assertThat(afterGroups, CoreMatchers.equalTo(
 //                    beforeGroups.withAdded(new GroupData()
@@ -78,7 +81,8 @@ public class ContactAddToGroupTests extends TestBase {
 //                            .withHeader(groupForAdding.getHeader())
 //                            .withFooter(groupForAdding.getFooter()))));
         }
-
+        Groups afterGroups = contactBeforeAddingToGroup.getGroups();
+        System.out.println("afterGroups are " + afterGroups);
 
 
         app.goTo().homePage();

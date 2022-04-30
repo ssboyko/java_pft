@@ -153,6 +153,7 @@ public class ContactsHelper extends HelperBase {
         new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
         //click(By.xpath("//option[@value=" + group.getId() + "]"));
         clickAddToGroupButton();
+        contactCache = null;
         returnToHomePage();
     }
 
