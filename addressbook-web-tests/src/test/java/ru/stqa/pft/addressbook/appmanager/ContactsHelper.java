@@ -7,7 +7,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -99,6 +101,15 @@ public class ContactsHelper extends HelperBase {
         return options.stream().anyMatch(webElement -> webElement.getText().equals(groupName));
     }
 
+    public List getGroupsNamesAtMainPaige() {
+        List<WebElement> options = new Select(wd.findElement(By.name("to_group"))).getOptions();
+        List<String> groupNamesInSelectOfGroups = new ArrayList<>();
+        for (WebElement e: options){
+            groupNamesInSelectOfGroups.add(e.getText());
+        }
+        return groupNamesInSelectOfGroups;
+    }
+
     private Contacts contactCache = null;
 
     public Contacts all() {
@@ -137,10 +148,11 @@ public class ContactsHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void addToGroup(ContactData contactData) {
+    public void addToGroup(ContactData contactData, GroupData group) {
         selectContactById(contactData.getId());
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
+        //click(By.xpath("//option[@value=" + group.getId() + "]"));
         clickAddToGroupButton();
-        contactCache = null;
         returnToHomePage();
     }
 
