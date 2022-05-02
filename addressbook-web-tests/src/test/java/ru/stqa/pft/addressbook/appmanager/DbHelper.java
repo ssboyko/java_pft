@@ -13,7 +13,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 
-import javax.persistence.Query;
+import org.hibernate.Query;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Queue;
@@ -52,11 +52,11 @@ public class DbHelper {
     public ContactData contact(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = (Query) session.createQuery("from ContactData where id = :id");
-        query.setParameter("id", id);
-        ContactData contactData = (ContactData) query.getSingleResult();
         session.getTransaction().commit();
+        Query result = (Query) session.createQuery( "from ContactData where id = :id" );
+        result.setParameter("id", id);
+        ContactData contact = (ContactData) result.uniqueResult();
         session.close();
-        return contactData;
+        return contact;
     }
 }

@@ -80,6 +80,10 @@ public class ContactsHelper extends HelperBase {
         click(By.name("add"));
     }
 
+    public void clickRemoveFromGroupButton(){
+        click(By.name("remove"));
+    }
+
     public void submitContactModification() {
         click(By.xpath("//div[@id='content']/form/input[22]"));
     }
@@ -151,8 +155,15 @@ public class ContactsHelper extends HelperBase {
     public void addToGroup(ContactData contactData, GroupData group) {
         selectContactById(contactData.getId());
         new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
-        //click(By.xpath("//option[@value=" + group.getId() + "]"));
         clickAddToGroupButton();
+        contactCache = null;
+        returnToHomePage();
+    }
+
+    public void deleteFromGroup(ContactData contactData, GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(group.getId()));
+        selectContactById(contactData.getId());
+        clickRemoveFromGroupButton();
         contactCache = null;
         returnToHomePage();
     }

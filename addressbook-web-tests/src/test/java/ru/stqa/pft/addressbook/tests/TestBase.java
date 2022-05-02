@@ -61,6 +61,12 @@ public class TestBase {
         app.contact().returnToHomePage();
     }
 
+    public void create( ContactData contactData) {
+        app.contact().initContactCreation();
+        app.contact().createContact(contactData);
+        app.contact().returnToHomePage();
+    }
+
     public void verifyGroupListinUI() {
         if(Boolean.getBoolean("verifyUI")) {
             Groups dbGroups = app.db().groups();
