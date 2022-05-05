@@ -11,13 +11,19 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.File;
 
-public class ContactDeleteFromGroupTests extends TestBase{
+public class ContactDeleteFromGroupTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        //Проверка предусловия, что есть группа. Если группы нет, создаём её
         GroupData group = new GroupData().withName("test1").withHeader("test2").withFooter("test3");
+        //Получаем список групп
         Groups groups = app.db().groups();
-        if (groups.size() == 0) {
+        //выбираем контакт из БД, который будем добавлять в группу
+        ContactData contactBeforeAddingToGroup = app.db().contacts().iterator().next();
+        //получаем список групп у этого контакта
+        Groups beforeGroups = contactBeforeAddingToGroup.getGroups();
+        //Проверка предусловия, что есть группа. Если группы нет, создаём её
+        //Также проверяем, что контакт добавлен не во все группы
+        if (groups.size() == 0 || groups.size() == beforeGroups.size()) {
             app.goTo().groupPage();
             app.group().create(group);
             app.goTo().groupPage();
@@ -36,7 +42,7 @@ public class ContactDeleteFromGroupTests extends TestBase{
     }
 
     @Test
-    public void deleteGroupFromContact () {
+    public void deleteGroupFromContact() {
         //Получаем список всех групп
         Groups groups = app.db().groups();
         //выбираем контакт из БД, который будем добавлять в группу
@@ -44,32 +50,16 @@ public class ContactDeleteFromGroupTests extends TestBase{
         //получаем список групп у этого контакта
         Groups beforeGroups = contactBeforeDeleteToGroup.getGroups();
         System.out.println("beforeGroups " + beforeGroups);
-        //проверяем, есть ли группы у контакта, чтобы можно было удалить контакт из группы
-        if(beforeGroups.size() > 0) {
-            //выбираем группу для удаления
-            GroupData groupForRemove = beforeGroups.stream().iterator().next();
-            //удаляем группу из контакта
-            app.contact().deleteFromGroup(contactBeforeDeleteToGroup, groupForRemove);
-            //проверяем список групп после удаления
-            Groups afterGroups = app.db().contact(contactBeforeDeleteToGroup.getId()).getGroups();
-            //Сравнение списка групп до и после добавления
-            MatcherAssert.assertThat(afterGroups, CoreMatchers.equalTo(
-                    beforeGroups.without(groupForRemove)));
-        }
-        //иначе контакт не состоит ни в одной из групп, поэтому, нужно его добавить
-        else {
-            //выбираем группу для удаления - > на этот раз, из общего списка групп рандомную, т.к контакт
-            // не состоит ни в одной из групп
-            GroupData groupForRemove = groups.stream().iterator().next();
-            //добавляем контакт в группу
-            app.contact().addToGroup(contactBeforeDeleteToGroup, groupForRemove);
-            //удаляем контактиз группы
-            app.contact().deleteFromGroup(contactBeforeDeleteToGroup, groupForRemove);
-            //далее получаем список групп у контакта
-            Groups afterGroups = app.db().contact(contactBeforeDeleteToGroup.getId()).getGroups();
-            //далее проверка, что список групп после удаления снова пуст
-            MatcherAssert.assertThat(afterGroups.size(),CoreMatchers.equalTo(0));
-        }
+        //выбираем группу для удаления
+        GroupData groupForRemove = beforeGroups.stream().iterator().next();
+        //удаляем группу из контакта
+        app.contact().deleteFromGroup(contactBeforeDeleteToGroup, groupForRemove);
+        //проверяем список групп после удаления
+        Groups afterGroups = app.db().contact(contactBeforeDeleteToGroup.getId()).getGroups();
+        //Сравнение списка групп до и после добавления
+        MatcherAssert.assertThat(afterGroups, CoreMatchers.equalTo(
+                beforeGroups.without(groupForRemove)));
+
 
     }
 }
