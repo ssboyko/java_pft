@@ -70,11 +70,7 @@ public class ContactAddToGroupTests extends TestBase {
         System.out.println("afterGroups are " + afterGroups);
         //Сравнение списка групп до и после добавления
         assertThat(afterGroups, equalTo(
-                beforeGroups.withAdded(new GroupData()
-                        .withId(groupForAdding.getId())
-                        .withName(groupForAdding.getName())
-                        .withHeader(groupForAdding.getHeader())
-                        .withFooter(groupForAdding.getFooter()))));
+                beforeGroups.withAdded(groupForAdding)));
 
         app.goTo().homePage();
     }
